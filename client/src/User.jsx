@@ -29,7 +29,7 @@ function User() {
             </thead>
             <tbody>
                 {
-                    user.map((user)=>{
+                    users.map((user)=>{
                         return
                         <tr>    <td>{user.Name}</td>
                         <td>{user.Email}</td>
