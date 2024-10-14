@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UpdateUser from "./UpdateUser";
 import User from "./User";
+import CreateUser from "./CreateUser";
+
 function App() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0); // count is not being used, consider removing if unnecessary
+
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/"element={User}></Route>
-          <Route path='/create' element={createImageBitmap}></Route>
-          <Route path='/update' element={UpdateUser}></Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<User />} />
+        <Route path="/create" element={<CreateUser />} />
+        <Route path="/update" element={<UpdateUser />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
