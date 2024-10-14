@@ -20,7 +20,7 @@ function CreateUser() {
             <label htmlFor="">Age</label>
             <input type="Text" placeholder="age"></input>
           </div>
-        <button >Submit</button>
+        <button >Update</button>
         </form>
       </div>
     </div>
