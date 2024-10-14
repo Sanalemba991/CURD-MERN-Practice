@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function User() {
+    const [users,setUsers]=useState([{    
+        Name:"Sanalemba",
+        Email:"laitonjam99@gmail.com",
+        Age:29}
+    
+    ])
   return (
     <div>
     <div>
@@ -22,7 +28,19 @@ function User() {
                 </tr>
             </thead>
             <tbody>
-                
+                {
+                    user.map((user)=>{
+                        return
+                        <tr>    <td>{user.Name}</td>
+                        <td>{user.Email}</td>
+                        <td>{user.Age}</td>
+                        <td><button>Edit</button>
+                        <button>Delete</button></td>
+                   </tr>
+                    
+                    }
+                )}
+
             </tbody>
         </table>
     </div>
