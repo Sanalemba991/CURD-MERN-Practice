@@ -1,38 +1,70 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function CreateUser() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [age, setAge] = useState("");
 
-  const [name,setName]=useState()
-  
-  const [email,setEmail]=useState()
-  const [age,setAge]=useState()
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  
+    const userData = {
+      name,
+      email,
+      age: age ? Number(age) : null, // Convert age to a number if provided
+    };
+
+    axios
+      .post("http://localhost:3001/create", userData) // Ensure the URL is correct
+      .then((result) => {
+        console.log(result);
+        // Reset form fields after successful submission
+        setName("");
+        setEmail("");
+        setAge("");
+      })
+      .catch((err) => {
+        console.error("Error creating user:", err); // Improved error logging
+      });
+  };
+
   return (
     <div>
-      <div>
-        <form >
-          <div>
-            <h2>Create User</h2>
-            <label htmlFor="">Name</label>
-            <input type="Text" placeholder="Name"
-            onChange={(e)=>setName(e.target.value)}></input>
-          
-          </div>
+      <h2>Create User</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Name</label>
+          <input
+            type="text"
+            placeholder="Name"
+            value={name} // Controlled input
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
 
-          <div>
-            <label htmlFor="">Email</label>
-            <input type="Text" placeholder="email"
-             onChange={(e)=>setEmail(e.target.value)}></input>
-          </div>
-          <div>
-            <label htmlFor="">Age</label>
-            <input type="Text" placeholder="age"
-             onChange={(e)=>setAge(e.target.value)}></input>
-          </div>
-        <button >Update</button>
-        </form>
-      </div>
+        <div>
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email} // Controlled input
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label>Age</label>
+          <input
+            type="number"
+            placeholder="Age"
+            value={age} // Controlled input
+            onChange={(e) => setAge(e.target.value)}
+          />
+        </div>
+
+        <button type="submit">Create</button>
+      </form>
     </div>
   );
 }
