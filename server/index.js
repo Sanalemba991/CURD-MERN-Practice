@@ -16,7 +16,9 @@ app.use(cors()); // Also updated here
 // Use express.json() middleware to parse JSON request bodies
 app.use(express.json());
 
-mongoose.connect("mongodb://127.0.0.1:27017")
+mongoose.connect("mongodb://127.0.0.1:/curd")
+
+
 // Start the server on port 3001 and log a message to the console
 app.listen(3001, () => {
     console.log("Server is Okay");
