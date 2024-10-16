@@ -26,7 +26,7 @@ function CreateUser() {
         setName("");
         setEmail("");
         setAge("");
-      
+        navigate('/')
       })
       .catch((err) => {
         console.error("Error creating user:", err); // Improved error logging
