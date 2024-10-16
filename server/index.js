@@ -29,7 +29,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/curd", {
 
 app.get('/',(res,req)=>{
     UserModel.find({})
-    .then(user =>res.json(user))
+    .then(user =>res.json(users))
     .catch(err => res.json)
 })
 // POST route to create a user
