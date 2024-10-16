@@ -27,11 +27,13 @@ mongoose.connect("mongodb://127.0.0.1:27017/curd", {
 .then(() => console.log("Connected to MongoDB"))
 .catch(err => console.error("MongoDB connection error:", err));
 
-app.get('/',(res,req)=>{
+// GET route to fetch all users
+app.get('/', (req, res) => {
     UserModel.find({})
-    .then(user =>res.json(users))
-    .catch(err => res.json)
-})
+        .then(users => res.json(users)) // Use `users` here
+        .catch(err => res.status(500).json({ message: "Error fetching users", error: err }));
+});
+
 // POST route to create a user
 app.post("/create", (req, res) => {
     UserModel.create(req.body)
