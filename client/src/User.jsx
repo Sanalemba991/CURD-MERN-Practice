@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios'
 
 function User() {
-  const [users, setUsers] = useState([
-    {
-      Name: "Sanalemba",
-      Email: "laitonjam99@gmail.com",
-      Age: 29,
-    },
-  ]);
+  const [users, setUsers] = useState([])
 
+  useEffect(()=>{
+    axios.get("http://localhost:3001")
+    .then(result => setUsers(result.data))
+    .catch(err => console.log(err))
+  })
   return (
     <div>
         <Link to="/create">Add+</Link>

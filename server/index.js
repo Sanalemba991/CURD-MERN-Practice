@@ -27,6 +27,11 @@ mongoose.connect("mongodb://127.0.0.1:27017/curd", {
 .then(() => console.log("Connected to MongoDB"))
 .catch(err => console.error("MongoDB connection error:", err));
 
+app.get('/',(res,req)=>{
+    UserModel.find({})
+    .then(user =>res.json(user))
+    .catch(err => res.json)
+})
 // POST route to create a user
 app.post("/create", (req, res) => {
     UserModel.create(req.body)
