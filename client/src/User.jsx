@@ -31,7 +31,7 @@ function User() {
               <td>{user.email}</td>
               <td>{user.age}</td>
               <td>
-              <Link to="/update">Edit</Link>
+              <Link to={`/update/${user._id}`}>Update</Link>
               <button>Delete</button>
               </td>
             </tr>
