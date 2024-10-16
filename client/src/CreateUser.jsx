@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {useNavigate} from 'react-router-dom'
 
 function CreateUser() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
+
+  const navigate=useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,6 +26,7 @@ function CreateUser() {
         setName("");
         setEmail("");
         setAge("");
+      
       })
       .catch((err) => {
         console.error("Error creating user:", err); // Improved error logging
