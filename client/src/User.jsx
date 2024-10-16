@@ -29,7 +29,7 @@ function User() {
             <tr key={user.id}> {/* Use a unique key for each row */}
               <td>{user.Name}</td>
               <td>{user.Email}</td>
-              <td>{user.age}</td>
+              <td>{user.Age}</td>
               <td>
               <Link to="/update">Edit</Link>
               <button>Delete</button>
