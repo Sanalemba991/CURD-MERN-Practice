@@ -34,8 +34,8 @@ app.get('/', (req, res) => {
         .catch(err => res.status(500).json({ message: "Error fetching users", error: err }));
 });
 app.get('/getUser/:id', (req, res) => {
-   const id=req.params(id);
-   UserModel.findById({id})
+   const id=req.params.id;
+   UserModel.findById({_id})
    .then(users => res.json(users)) // Use `users` here
    .catch(err => res.status(500).json({ message: "Error fetching users", error: err }));
 });

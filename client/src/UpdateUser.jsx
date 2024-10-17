@@ -15,6 +15,10 @@ function UpdateUser() {
   useEffect(()=>{
     axios.get(`http://localhost:3001/getUser`+id)
     .then(res=>console.log)
+    setName(result.data.name)
+    setEmail(result.data.email )
+    setAge(result.data.age)
+
   })
 
 
@@ -29,16 +33,16 @@ function UpdateUser() {
         <div>
           <h2>Update User</h2>
           <label htmlFor="">Name</label>
-          <input type="Text" placeholder="Name"></input>
+          <input type="Text" placeholder="Name"  value={name}   onChange={(e) => setName(e.target.value)}></input>
         </div>
 
         <div>
           <label htmlFor="">Email</label>
-          <input type="Text" placeholder="email"></input>
+          <input type="Text" placeholder="email" value={email}   onChange={(e) => setEmail(e.target.value)}></input>
         </div>
         <div>
           <label htmlFor="">Age</label>
-          <input type="Text" placeholder="age"></input>
+          <input type="Text" placeholder="age" value={age}   onChange={(e) => setAge(e.target.value)}></input>
         </div>
       <button >Submit</button>
       </form>
