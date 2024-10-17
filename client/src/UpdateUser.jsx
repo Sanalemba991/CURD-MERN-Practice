@@ -1,7 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 function UpdateUser() {
-  return (
+
+
+  const {id}=useParams
+
+  const [name,setName]=useState()
+  const[email,setEmail]=useState()
+  const [age,setAge]=useState()
+
+
+  const navigate=useNavigate()
+
+
+  
+
+
+  
+  return ( 
     <div>
     <div>
       <form>
