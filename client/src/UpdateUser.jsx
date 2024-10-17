@@ -22,14 +22,36 @@ function UpdateUser() {
   })
 
 
+  const update  = (e) => {
+    e.preventDefault();
 
+    const userData = {
+      name,
+      email,
+      age: age ? Number(age) : null, // Convert age to a number if provided
+    };
+
+    axios
+      .put("http://localhost:3001/create/"+id, userData) // Ensure the URL is correct
+      .then((result) => {
+        console.log(result);
+        // Reset form fields after successful submission
+        setName("");
+        setEmail("");
+        setAge("");
+        navigate('/')
+      })
+      .catch((err) => {
+        console.error("Error creating user:", err); // Improved error logging
+      });
+  };
 
 
   
   return ( 
     <div>
     <div>
-      <form>
+      <form onSubmit={update}>
         <div>
           <h2>Update User</h2>
           <label htmlFor="">Name</label>

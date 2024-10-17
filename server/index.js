@@ -1,25 +1,17 @@
-// Import the express module to create the server
+// Import the necessary modules
 const express = require('express');
-
-// Import the mongoose module to interact with MongoDB
 const mongoose = require('mongoose');
-
-// Import the cors module to enable Cross-Origin Resource Sharing
 const cors = require('cors');
-
-// Import the User model
 const UserModel = require('./models/User');
 
 // Create an instance of an Express application
 const app = express();
 
-// Use the cors middleware to allow cross-origin requests
+// Use cors and express.json middleware
 app.use(cors());
-
-// Use express.json() middleware to parse JSON request bodies
 app.use(express.json());
 
-// Connect to MongoDB (fixing the connection string)
+// Connect to MongoDB
 mongoose.connect("mongodb://127.0.0.1:27017/curd", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -30,25 +22,34 @@ mongoose.connect("mongodb://127.0.0.1:27017/curd", {
 // GET route to fetch all users
 app.get('/', (req, res) => {
     UserModel.find({})
-        .then(users => res.json(users)) // Use `users` here
+        .then(users => res.json(users))
         .catch(err => res.status(500).json({ message: "Error fetching users", error: err }));
 });
+
+// GET route to fetch a user by ID
 app.get('/getUser/:id', (req, res) => {
-   const id=req.params.id;
-   UserModel.findById({_id})
-   .then(users => res.json(users)) // Use `users` here
-   .catch(err => res.status(500).json({ message: "Error fetching users", error: err }));
+    const id = req.params.id;
+    UserModel.findById(id)
+        .then(user => res.json(user))
+        .catch(err => res.status(500).json({ message: "Error fetching user", error: err }));
 });
 
+// PUT route to update a user by ID
+app.put('/updateUser/:id', (req, res) => {
+    const id = req.params.id;
+    UserModel.findByIdAndUpdate(id, req.body, { new: true })
+        .then(user => res.json(user))
+        .catch(err => res.status(500).json({ message: "Error updating user", error: err }));
+});
 
 // POST route to create a user
 app.post("/create", (req, res) => {
     UserModel.create(req.body)
         .then(user => res.json(user))
-        .catch(err => res.status(400).json(err)); // Ensure errors are handled properly
+        .catch(err => res.status(400).json(err));
 });
 
-// Start the server on port 3001 and log a message to the console
+// Start the server
 app.listen(3001, () => {
     console.log("Server is running on port 3001");
 });
