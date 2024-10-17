@@ -5,7 +5,7 @@ import User from "./User";
 import CreateUser from "./CreateUser";
 
 function App() {
-  const [count, setCount] = useState(0); // count is not being used, consider removing if unnecessary
+
 
   return (
     <BrowserRouter>
