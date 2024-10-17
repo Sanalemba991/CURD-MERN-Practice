@@ -1,76 +1,68 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function UpdateUser() {
+    const { id } = useParams();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [age, setAge] = useState('');
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        axios.get(`http://localhost:3001/getUser/${id}`)
+            .then(res => {
+                setName(res.data.name);
+                setEmail(res.data.email);
+                setAge(res.data.age);
+            })
+            .catch(err => console.error("Error fetching user:", err));
+    }, [id]);
 
-  const {id}=useParams
+    const update = (e) => {
+        e.preventDefault();
 
-  const [name,setName]=useState()
-  const[email,setEmail]=useState()
-  const [age,setAge]=useState()
-  const navigate=useNavigate()
+        const userData = {
+            name,
+            email,
+            age: age ? Number(age) : null,
+        };
 
-  useEffect(()=>{
-    axios.get(`http://localhost:3001/getUser`+id)
-    .then(res=>console.log)
-    setName(result.data.name)
-    setEmail(result.data.email )
-    setAge(result.data.age)
-
-  })
-
-
-  const update  = (e) => {
-    e.preventDefault();
-
-    const userData = {
-      name,
-      email,
-      age: age ? Number(age) : null, // Convert age to a number if provided
+        axios
+            .put(`http://localhost:3001/updateUser/${id}`, userData)
+            .then((result) => {
+                console.log(result);
+                // Reset form fields after successful submission
+                setName("");
+                setEmail("");
+                setAge("");
+                navigate('/');
+            })
+            .catch((err) => {
+                console.error("Error updating user:", err);
+            });
     };
 
-    axios
-      .put("http://localhost:3001/create/"+id, userData) // Ensure the URL is correct
-      .then((result) => {
-        console.log(result);
-        // Reset form fields after successful submission
-        setName("");
-        setEmail("");
-        setAge("");
-        navigate('/')
-      })
-      .catch((err) => {
-        console.error("Error creating user:", err); // Improved error logging
-      });
-  };
-
-
-  
-  return ( 
-    <div>
-    <div>
-      <form onSubmit={update}>
+    return (
         <div>
-          <h2>Update User</h2>
-          <label htmlFor="">Name</label>
-          <input type="Text" placeholder="Name"  value={name}   onChange={(e) => setName(e.target.value)}></input>
+            <h2>Update User</h2>
+            <form onSubmit={update}>
+                <div>
+                    <label>Name</label>
+                    <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+                </div>
+                <div>
+                    <label>Email</label>
+                    <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </div>
+                <div>
+                    <label>Age</label>
+                    <input type="text" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} />
+                </div>
+                <button type="submit">Submit</button>
+            </form>
         </div>
-
-        <div>
-          <label htmlFor="">Email</label>
-          <input type="Text" placeholder="email" value={email}   onChange={(e) => setEmail(e.target.value)}></input>
-        </div>
-        <div>
-          <label htmlFor="">Age</label>
-          <input type="Text" placeholder="age" value={age}   onChange={(e) => setAge(e.target.value)}></input>
-        </div>
-      <button >Submit</button>
-      </form>
-    </div>
-  </div>
-  )
+    );
 }
 
-export default UpdateUser
+export default UpdateUser;
