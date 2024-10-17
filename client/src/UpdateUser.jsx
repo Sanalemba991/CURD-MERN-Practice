@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 function UpdateUser() {
@@ -9,12 +10,15 @@ function UpdateUser() {
   const [name,setName]=useState()
   const[email,setEmail]=useState()
   const [age,setAge]=useState()
-
-
   const navigate=useNavigate()
 
+  useEffect(()=>{
+    axios.get(`http://localhost:3001/getUser`+id)
+    .then(res=>console.log)
+  })
 
-  
+
+
 
 
   
