@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import {useNavigate} from 'react-router-dom'
+import './Create.css'
 
 function CreateUser() {
   const [name, setName] = useState("");
@@ -35,7 +36,7 @@ function CreateUser() {
 
   return (
     <div>
-      <h2>Create User</h2>
+      <h2 className="create">Create User</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Name</label>
